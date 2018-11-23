@@ -1,0 +1,4 @@
+* * * * * cd /app && /usr/local/bin/php artisan schedule:run
+* * * * * echo "Hello world!"
+
+# An empty line is required at the end of this file for a valid cron file.

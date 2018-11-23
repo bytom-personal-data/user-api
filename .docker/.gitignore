@@ -1,0 +1,5 @@
+/databases/clickhouse/*
+/databases/postgres/*
+/databases/redis/*
+/logs/*
+/nginx/logs
