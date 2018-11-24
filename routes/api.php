@@ -24,4 +24,11 @@ Route::post('/login', 'Api\UserController@login')->name('user.login');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/user', 'Api\UserController@user')->name('user.user');
     Route::get('/unspents', 'Api\UserController@unspents')->name('user.unspents');
+
+    Route::group(['prefix' => 'data'], function() {
+       Route::post('/create', 'Api\DataController@add');
+       Route::post('/request', 'Api\DataController@requestByLabel');
+       Route::get('/get', 'Api\DataController@getByLabel');
+    });
 });
+

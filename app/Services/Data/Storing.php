@@ -15,7 +15,7 @@ class Storing
     {
         $ownerHash = $ownerHash ?? app()->user()->receiver_address;
 
-        if (!$this->checkAllowanceToLabel($label)) {
+        if (!$this->checkAllowanceToCreateInLabel($label)) {
             throw new \Exception("Maker not allowed to create data with this label");
         }
 
@@ -29,7 +29,35 @@ class Storing
         return $data;
     }
 
-    public function checkAllowanceToLabel($label): bool
+    public function makeDataRequest(string $label, string $owner_hash)
+    {
+        if (!$this->checkAllowanceToReadInLabel($label)) {
+            throw new \Exception("Request can'not be sent in this label.");
+        }
+
+        //TODO make new AllowanceRequest
+    }
+
+    public function getData(string $label, string $owner_hash)
+    {
+        if (!$this->checkAllowanceToReadInLabel($label)) {
+            throw new \Exception("Request can'not be sent in this label.");
+        }
+
+        //TODO check setted allowance
+
+        $data = Data::where('owner_hash', $owner_hash)
+            ->all();
+
+        return $data;
+    }
+
+    public function checkAllowanceToCreateInLabel($label): bool
+    {
+        return true;
+    }
+
+    public function checkAllowanceToReadInLabel($label): bool
     {
         return true;
     }
