@@ -14,6 +14,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $password
  * @property string $xpub
  * @property string $keyfile
+ * @property string $account_id
+ * @property string $receiver_address
  */
 class User extends Authenticatable
 {
@@ -36,4 +38,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'keyfile'
     ];
+
+    public function ownerData()
+    {
+        $this->hasMany(Data::class, 'owner_hash', 'receiver_address');
+    }
+
+    public function madeData()
+    {
+        $this->hasMany(Data::class, 'maker_hash', 'receiver_address');
+    }
 }

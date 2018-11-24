@@ -4,11 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateDataTable
- *
- */
-class CreateDataTable extends Migration
+class CreateVerifiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,12 +13,12 @@ class CreateDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('data', function (Blueprint $table) {
+        Schema::create('verifications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('owner_hash');
-            $table->string('maker_hash');
-            $table->string('label');
-            $table->text('data');
+            $table->integer('data_id');
+            $table->string('verifier_hash');
+            $table->string('verify_txhash');
+            $table->string('verify_utxo');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data');
+        Schema::dropIfExists('verifications');
     }
 }
