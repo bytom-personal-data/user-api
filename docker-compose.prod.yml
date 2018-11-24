@@ -12,8 +12,6 @@ services:
       - ./.docker/databases/postgres:/var/lib/postgresql/data
     ports:
       - "5434:5432"
-    depends_on:
-      - nginx
     environment:
       - POSTGRES_USER=bytom
       - POSTGRES_PASSWORD=simplepassword
