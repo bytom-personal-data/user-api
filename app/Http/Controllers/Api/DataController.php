@@ -7,13 +7,15 @@ use App\Constants\Labels;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DataAdd as DataAddRequest;
 use App\Http\Requests\DataGet as DataGetRequest;
+use App\Http\Resources\Data as DataResource;
 use App\Services\Data\Storing;
+use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
     public function add(DataAddRequest $request, Storing $storing)
     {
-        return $storing->add($request->label, $request->data, $request->owner_hash);
+        return new DataResource($storing->add($request->label, $request->data, $request->owner_hash));
     }
 
     public function labels()
@@ -26,8 +28,11 @@ class DataController extends Controller
         return $storing->makeDataRequest($request->labels, $request->owner_hash);
     }
 
-    public function getByLabel(DataGetRequest $request, Storing $storing)
+    public function getByLabels(Request $request, Storing $storing)
     {
-        return $storing->getData($request->labels, $request->owner_hash);
+        if ($request->get('labels')) {
+            $ownerHash = $request->get('owner_hash') ?? $request->user()->receiver_address;
+            return DataResource::collection($storing->getData($request->get('labels'), $ownerHash));
+        }
     }
 }

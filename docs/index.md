@@ -81,3 +81,50 @@ Endpoint: `POST /data/labels`
 }
 ```
 
+### Create new data
+Creating new data row.
+
+Endpoint: `POST /data/create`
+
+**Request**:
+```
+label (string, label of data)
+data (string, data)
+owner_hash (optional, string, hash of future data owner)
+```
+If owner_has not set, user, which make request, become a owner.
+
+**Response**:
+```js
+{
+    "id": 3,
+    "label": "personal_id",
+    //user object below
+    "owner": {
+        "id": 7,
+        "username": "test18",
+        "created_at": "2018-11-24 10:49:50",
+        "updated_at": "2018-11-24 10:49:50",
+        "account_id": "0LJNE41QG0A02",
+        "receiver_address": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+        "type": 1
+    },
+    "maker": {
+        "id": 7,
+        "username": "test18",
+        "created_at": "2018-11-24 10:49:50",
+        "updated_at": "2018-11-24 10:49:50",
+        "account_id": "0LJNE41QG0A02",
+        "receiver_address": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+        "type": 1
+    },
+    "data": "8148 8588182",
+    "verifications": [],
+    "is_verified": false,
+    "created_at": {
+        "date": "2018-11-24 22:35:30.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    }
+}
+```

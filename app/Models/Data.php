@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Secure\Hashing;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $maker
  * @property User $owner
  * @property Verification[] $verifications
+ *
+ * @property string $decrypted_data
  */
 class Data extends Model
 {

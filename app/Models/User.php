@@ -45,7 +45,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'keyfile'
+        'password', 'keyfile', 'xpub'
     ];
 
     public function ownerData()

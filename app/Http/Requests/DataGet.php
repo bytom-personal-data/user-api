@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 /**
  * Class DataGet
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property array $labels
  * @property string $owner_hash
  */
-class DataGet extends FormRequest
+class DataGet extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,7 @@ class DataGet extends FormRequest
     public function rules()
     {
         return [
-            'labels' => 'required|array',
+            'labels' => 'array',
             'owner_hash' => 'required|string',
         ];
     }

@@ -7,7 +7,7 @@ use App\Models\Allowance;
 use App\Models\AllowanceRequest;
 use App\Models\LabelAllowance;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\VarDumper\Cloner\Data;
+use App\Models\Data;
 
 class Storing
 {
@@ -17,7 +17,7 @@ class Storing
 
     public function add(string $label, string $data, string $ownerHash = null)
     {
-        $ownerHash = $ownerHash ?? app()->user()->receiver_address;
+        $ownerHash = $ownerHash ?? request()->user()->receiver_address;
 
         if (!$this->checkAllowanceToCreateInLabel($label)) {
             throw new \Exception("Maker not allowed to create data with this label");
@@ -25,7 +25,7 @@ class Storing
 
         $data = Data::create([
             'label' => $label,
-            'maker_hash' => app()->user()->receiver_address,
+            'maker_hash' => request()->user()->receiver_address,
             'owner_hash' => $ownerHash,
             'data' => $data,
         ]);
@@ -44,7 +44,7 @@ class Storing
                 }
 
                 $allowanceRequest[] = AllowanceRequest::create([
-                    'accessor_hash' => app()->user()->receiver_address,
+                    'accessor_hash' => request()->user()->receiver_address,
                     'owner_hash' => $ownerHash,
                     'label' => $label,
                 ]);
@@ -58,10 +58,10 @@ class Storing
     {
         foreach( $labels as $label ) {
             if (!$this->checkAllowanceToReadInLabel($label)) {
-                throw new \Exception("Request can'not be sent in this label.");
+                throw new \Exception("Data can'not be getted for this label.");
             }
 
-            if (!$this->hasAllowance(app()->user(), $ownerHash, $label)) {
+            if (!$this->hasAllowance(request()->user()->receiver_address, $ownerHash, $label)) {
                 throw new \Exception("You can't get unaccessed data.");
             }
         }
@@ -75,7 +75,10 @@ class Storing
 
     public function checkAllowanceToCreateInLabel($label): bool
     {
-        return LabelAllowance::where('accessor_hash', app()->user())
+        //FOR TEST
+        return true;
+
+        return LabelAllowance::where('accessor_hash', request()->user()->receiver_address)
             ->where('label', $label)
             ->where('is_active', true)
             ->where('mode', LabelAllowance::READ_MODE)
@@ -84,7 +87,9 @@ class Storing
 
     public function checkAllowanceToReadInLabel($label): bool
     {
-        return LabelAllowance::where('accessor_hash', app()->user())
+        return true;
+
+        return LabelAllowance::where('accessor_hash', request()->user()->receiver_address)
                 ->where('label', $label)
                 ->where('is_active', true)
                 ->where('mode', LabelAllowance::WRITE_MODE)
@@ -97,6 +102,7 @@ class Storing
             ->where('owner_hash', $ownerHash)
             ->where('label', $label)
             ->where('is_active', true)
-            ->count() > 0;
+            ->count() > 0 ||
+            $ownerHash == $accessorHash;
     }
 }
