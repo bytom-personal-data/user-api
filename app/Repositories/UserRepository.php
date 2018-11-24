@@ -10,6 +10,8 @@ use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class UserRepository
 {
+    private const DEFAULT_ACCOUNT = 'main';
+
     public function create(string $username, string $password): User
     {
         if( User::where('username', $username)->count() > 0 ) {
@@ -20,12 +22,18 @@ class UserRepository
         /** @var Node $bytom */
         $bytom = resolve(Node::class);
         $key = $bytom->createKey($username, $password);
+        $accountAlias = $username . "_" . self::DEFAULT_ACCOUNT;
+        $account = $bytom->createAccount([$key['xpub']], $accountAlias);
+        $receiver = $bytom->createAccountReceiver($accountAlias);
+
 
         $user = User::create([
             'username' => $username,
             'password' => Hash::make($password),
             'xpub' => $key['xpub'],
             'keyfile' => $key['file'],
+            'account_id' => $account['id'],
+            'receiver_address' => $receiver['address'],
         ]);
 
         return $user;

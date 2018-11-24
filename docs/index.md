@@ -1,9 +1,10 @@
-## API documentation
+# API documentation
 
 API uses basic endpoint `/api`.  
 
-### User
-#### Signup
+## User Authorization
+
+### Signup
 
 Endpoint: `POST /signup` 
 
@@ -25,7 +26,7 @@ password_repeat (equals to password),
 }
 ```
 
-#### Login
+### Login
 
 Endpoint: `POST /login` 
 
@@ -48,3 +49,5 @@ password,
     }
 }
 ```
+
+## Auth 
