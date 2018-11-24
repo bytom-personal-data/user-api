@@ -19,5 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AllowanceRequest extends Model
 {
-    protected $fillable = ['label', 'owner_hash', 'status'];
+    public const NOT_ACCESSED = 0;
+    public const ACCESSED = 1;
+
+    protected $fillable = ['label', 'accessor_hash', 'owner_hash', 'status'];
 }

@@ -18,6 +18,7 @@ class CreateAllowancesTable extends Migration
             $table->string('label');
             $table->string('accessor_hash');
             $table->string('owner_hash');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

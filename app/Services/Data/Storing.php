@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Services\Data;
 
+use App\Models\Allowance;
+use App\Models\AllowanceRequest;
 use Symfony\Component\VarDumper\Cloner\Data;
 
 class Storing
@@ -29,24 +31,32 @@ class Storing
         return $data;
     }
 
-    public function makeDataRequest(string $label, string $owner_hash)
+    public function makeDataRequest(string $label, string $ownerHash)
     {
         if (!$this->checkAllowanceToReadInLabel($label)) {
             throw new \Exception("Request can'not be sent in this label.");
         }
 
-        //TODO make new AllowanceRequest
+        $allowanceRequest = AllowanceRequest::create([
+            'accessor_hash' => app()->user()->receiver_address,
+            'owner_hash' => $ownerHash,
+            'label' => $label,
+        ]);
+
+        return $allowanceRequest;
     }
 
-    public function getData(string $label, string $owner_hash)
+    public function getData(string $label, string $ownerHash)
     {
         if (!$this->checkAllowanceToReadInLabel($label)) {
             throw new \Exception("Request can'not be sent in this label.");
         }
 
-        //TODO check setted allowance
+        if( !$this->hasAllowance(app()->user(), $ownerHash, $label) ) {
+            throw new \Exception("You can't get unaccessed data.");
+        }
 
-        $data = Data::where('owner_hash', $owner_hash)
+        $data = Data::where('owner_hash', $ownerHash)
             ->all();
 
         return $data;
@@ -60,5 +70,14 @@ class Storing
     public function checkAllowanceToReadInLabel($label): bool
     {
         return true;
+    }
+
+    public function hasAllowance($accessorHash, $ownerHash, $label): bool
+    {
+        return Allowance::where('accessor_hash', $accessorHash)
+            ->where('owner_hash', $ownerHash)
+            ->where('label', $label)
+            ->where('is_active', true)
+            ->count() > 0;
     }
 }
