@@ -17,11 +17,11 @@ class DataController extends Controller
 
     public function requestByLabel(DataGetRequest $request, Storing $storing)
     {
-        return $storing->makeDataRequest($request->label, $request->owner_hash);
+        return $storing->makeDataRequest($request->labels, $request->owner_hash);
     }
 
     public function getByLabel(DataGetRequest $request, Storing $storing)
     {
-        return $storing->getData($request->label, $request->owner_hash);
+        return $storing->getData($request->labels, $request->owner_hash);
     }
 }

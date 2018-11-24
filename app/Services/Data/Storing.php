@@ -6,6 +6,7 @@ namespace App\Services\Data;
 use App\Models\Allowance;
 use App\Models\AllowanceRequest;
 use App\Models\LabelAllowance;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Cloner\Data;
 
 class Storing
@@ -32,34 +33,42 @@ class Storing
         return $data;
     }
 
-    public function makeDataRequest(string $label, string $ownerHash)
+    public function makeDataRequest(array $labels, string $ownerHash)
     {
-        if (!$this->checkAllowanceToReadInLabel($label)) {
-            throw new \Exception("Request can'not be sent in this label.");
-        }
+        $allowanceRequest = [];
 
-        $allowanceRequest = AllowanceRequest::create([
-            'accessor_hash' => app()->user()->receiver_address,
-            'owner_hash' => $ownerHash,
-            'label' => $label,
-        ]);
+        DB::transaction(function () use ($labels, $ownerHash) {
+            foreach ($labels as $label) {
+                if (!$this->checkAllowanceToReadInLabel($label)) {
+                    throw new \Exception("Request can'not be sent to label $label.");
+                }
+
+                $allowanceRequest[] = AllowanceRequest::create([
+                    'accessor_hash' => app()->user()->receiver_address,
+                    'owner_hash' => $ownerHash,
+                    'label' => $label,
+                ]);
+            }
+        });
 
         return $allowanceRequest;
     }
 
-    public function getData(string $label, string $ownerHash)
+    public function getData(array $labels, string $ownerHash)
     {
-        if (!$this->checkAllowanceToReadInLabel($label)) {
-            throw new \Exception("Request can'not be sent in this label.");
-        }
+        foreach( $labels as $label ) {
+            if (!$this->checkAllowanceToReadInLabel($label)) {
+                throw new \Exception("Request can'not be sent in this label.");
+            }
 
-        if( !$this->hasAllowance(app()->user(), $ownerHash, $label) ) {
-            throw new \Exception("You can't get unaccessed data.");
+            if (!$this->hasAllowance(app()->user(), $ownerHash, $label)) {
+                throw new \Exception("You can't get unaccessed data.");
+            }
         }
 
         $data = Data::where('owner_hash', $ownerHash)
-            ->where('label', $label)
-            ->all();
+            ->whereIn('label', $labels)
+            ->get();
 
         return $data;
     }

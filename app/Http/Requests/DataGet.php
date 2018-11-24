@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * Class DataGet
  * @package App\Http\Requests
  *
- * @property string $label
+ * @property array $labels
  * @property string $owner_hash
  */
 class DataGet extends FormRequest
@@ -31,7 +31,7 @@ class DataGet extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required|string',
+            'labels' => 'required|array',
             'owner_hash' => 'required|string',
         ];
     }
