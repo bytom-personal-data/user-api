@@ -3,9 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App\Models
+ *
+ * @property string $username
+ * @property string $password
+ * @property string $xpub
+ * @property string $keyfile
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -25,6 +33,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'keyfile'
     ];
 }

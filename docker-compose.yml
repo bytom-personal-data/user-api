@@ -30,7 +30,7 @@ services:
     depends_on:
       - nginx
     environment:
-      - POSTGRES_USER=root
+      - POSTGRES_USER=bytom
       - POSTGRES_PASSWORD=simplepassword
       - POSTGRES_DB=bytom
     networks:
