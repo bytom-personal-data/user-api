@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -63,16 +64,24 @@ class Handler extends ExceptionHandler
             ])->setStatusCode(401);
         }
 
+        if($exception instanceof MethodNotAllowedHttpException)
+        {
+            return response([
+                'error' => 'true',
+                'message' => "Method not allowed",
+            ])->setStatusCode($exception->getStatusCode());
+        }
+
         if ($exception instanceof HttpException) {
             return response([
                 'error' => 'true',
-                'message' => $exception->getMessage(),
+                'message' => $exception->getMessage() ?? class_basename($exception),
             ])->setStatusCode($exception->getStatusCode());
         }
 
         return response([
             'error' => 'true',
-            'message' => $exception->getMessage(),
+            'message' => $exception->getMessage() ?? class_basename($exception),
         ])->setStatusCode(400);
 
     }
