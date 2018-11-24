@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+
 Route::get('/', function() {
    return ['title' => 'Bytom Personal Identification API', 'type' => 'REST'];
 });
+
+Route::post('/signup', 'Api\UserController@signup')->name('user.signup');
+Route::post('/login', 'Api\UserController@login')->name('user.login');

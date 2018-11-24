@@ -19,8 +19,7 @@ class UserRepository
 
         /** @var Node $bytom */
         $bytom = resolve(Node::class);
-        $response = $bytom->client()->createKey($username, $password);
-        $key = $response->getJSONDecodedBody();
+        $key = $bytom->createKey($username, $password);
 
         $user = User::create([
             'username' => $username,

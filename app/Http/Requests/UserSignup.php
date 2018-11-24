@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 /**
  * Class UserSignup
  * @package App\Http\Requests
@@ -12,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $password
  * @property string $password_repeat
  */
-class UserSignup extends FormRequest
+class UserSignup extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,7 +32,7 @@ class UserSignup extends FormRequest
         return [
             'username' => 'required|string',
             'password' => 'required|string|min:6',
-            'password_repeat' => 'required|same:password'
+            'password_repeat' => 'same:password'
         ];
     }
 }

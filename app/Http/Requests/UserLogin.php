@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 /**
  * Class UserLogin
  * @package App\Http\Requests
@@ -11,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $username
  * @property string $password
  */
-class UserLogin extends FormRequest
+class UserLogin extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

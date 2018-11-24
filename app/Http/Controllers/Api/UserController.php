@@ -19,6 +19,7 @@ class UserController extends Controller
 
     public function signup(UserSignupRequest $request, UserRepository $repository)
     {
+
         $user = $repository->create($request->username, $request->password);
 
         //TODO make resource
