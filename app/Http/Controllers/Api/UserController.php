@@ -19,15 +19,31 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function signup(UserSignupRequest $request, UserRepository $repository)
+    /**
+     * @param UserSignupRequest $request
+     * @param UserRepository $repository
+     * @param ApiAuth $apiAuth
+     * @return array
+     */
+    public function signup(UserSignupRequest $request, UserRepository $repository, ApiAuth $apiAuth)
     {
-
         $user = $repository->create($request->username, $request->password);
+        $token = $apiAuth->make($user);
 
         //TODO make resource
-        return $user;
+        return [
+            'token' => $token,
+            'user' => $user
+        ];
     }
 
+    /**
+     * @param UserLoginRequest $request
+     * @param UserRepository $repository
+     * @param ApiAuth $apiAuth
+     * @return array
+     * @throws \Exception
+     */
     public function login(UserLoginRequest $request, UserRepository $repository, ApiAuth $apiAuth)
     {
         if ( $user = $repository->verifyPassword($request->username, $request->password) ) {
@@ -44,11 +60,18 @@ class UserController extends Controller
         throw new \Exception("Login can not be done.");
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function user(Request $request)
     {
         return $request->user();
     }
 
+    /**
+     * @return int
+     */
     public function unspents()
     {
         $node = resolve(Node::class);
