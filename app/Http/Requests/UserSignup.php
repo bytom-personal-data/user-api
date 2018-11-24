@@ -32,12 +32,12 @@ class UserSignup extends ApiFormRequest
     public function rules()
     {
         return [
-            'username' => 'required|string',
+            'username' => 'required|string|unique:users',
             'password' => 'required|string|min:6',
             'password_repeat' => 'same:password',
             'account_type' => [
                 'integer',
-                Rule::in([User::TYPE_ACCOUNT_USER, User::TYPE_ACCOUNT_ORGANISATION])
+                Rule::in([User::TYPE_DEFAULT, User::TYPE_FINANCE, User::TYPE_MEDICINE])
             ]
         ];
     }

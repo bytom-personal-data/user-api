@@ -15,6 +15,7 @@ class UserRepository
     /**
      * @param string $username
      * @param string $password
+     * @param int $type
      * @return User
      * @throws \Exception
      */

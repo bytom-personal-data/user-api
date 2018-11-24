@@ -20,6 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+    // Account Types
     public const TYPE_VERIFIER = 1000;
     public const TYPE_GOVERNMENT = 900;
     public const TYPE_MEDICINE = 3;
@@ -27,18 +28,6 @@ class User extends Authenticatable
     public const TYPE_DEFAULT = 1;
 
     use Notifiable;
-
-    // Account Types
-    const TYPE_ACCOUNT_USER = 1;
-    const TYPE_ACCOUNT_ORGANISATION = 2;
-    const TYPE_ACCOUNT_GOVERNMENT = 3;
-
-    // Organisation Types
-    const ORGANISATION_TYPE_MEDICINE = 1;
-    const ORGANISATION_TYPE_MONEY = 2;
-    const ORGANISATION_TYPE_JOB = 3;
-    const ORGANISATION_TYPE_LAW = 4;
-    const ORGANISATION_TYPE_PROPERTY = 5;
 
     /**
      * The attributes that are mass assignable.
