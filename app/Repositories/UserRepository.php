@@ -12,6 +12,12 @@ class UserRepository
 {
     private const DEFAULT_ACCOUNT = 'main';
 
+    /**
+     * @param string $username
+     * @param string $password
+     * @return User
+     * @throws \Exception
+     */
     public function create(string $username, string $password): User
     {
         if( User::where('username', $username)->count() > 0 ) {
@@ -39,6 +45,11 @@ class UserRepository
         return $user;
     }
 
+    /**
+     * @param string $username
+     * @param string $password
+     * @return User|null
+     */
     public function verifyPassword(string $username, string $password): ?User
     {
         $user = User::where('username', $username)->first();

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
+use App\Models\User;
+use Illuminate\Validation\Rule;
 
 /**
  * Class UserSignup
@@ -32,7 +34,11 @@ class UserSignup extends ApiFormRequest
         return [
             'username' => 'required|string',
             'password' => 'required|string|min:6',
-            'password_repeat' => 'same:password'
+            'password_repeat' => 'same:password',
+            'account_type' => [
+                'integer',
+                Rule::in([User::TYPE_ACCOUNT_USER, User::TYPE_ACCOUNT_ORGANISATION])
+            ]
         ];
     }
 }
