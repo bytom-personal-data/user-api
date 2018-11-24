@@ -14,7 +14,7 @@ class AddTypeColumnToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->smallInteger('type');
+            $table->smallInteger('type')->default(\App\Models\User::TYPE_DEFAULT);
         });
     }
 
