@@ -4,6 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class LabelAllowance
+ * @package App\Models
+ *
+ * @property int $id
+ * @property string $accessor_hash
+ * @property string $label
+ * @property int $mode
+ * @property bool $is_active
+ */
 class LabelAllowance extends Model
 {
     public const READ_MODE = 1;

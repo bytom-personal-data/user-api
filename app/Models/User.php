@@ -16,9 +16,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $keyfile
  * @property string $account_id
  * @property string $receiver_address
+ * @property int $type
  */
 class User extends Authenticatable
 {
+    public const TYPE_VERIFIER = 1000;
+    public const TYPE_GOVERNMENT = 900;
+    public const TYPE_MEDICINE = 3;
+    public const TYPE_FINANCE = 2;
+    public const TYPE_DEFAULT = 1;
+
     use Notifiable;
 
     /**
@@ -27,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'xpub', 'keyfile', 'account_id', 'receiver_address'
+        'username', 'password', 'xpub', 'keyfile', 'type', 'account_id', 'receiver_address'
     ];
 
     /**

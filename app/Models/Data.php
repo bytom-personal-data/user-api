@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Verification;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,6 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  *
  * @property-read $is_verified
+ *
+ * @property User $maker
+ * @property User $owner
+ * @property Verification[] $verifications
  */
 class Data extends Model
 {

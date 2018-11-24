@@ -16,8 +16,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $verify_utxo
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
+ * @property User $verifier
  */
 class Verification extends Model
 {
     protected $fillable = ['data_id', 'verifier_hash', 'verify_utxo'];
+
+    public function verifier()
+    {
+        return $this->belongsTo(User::class, 'verifier_hash', 'receiver_address');
+    }
 }

@@ -18,5 +18,21 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Allowance extends Model
 {
-    //
+    protected $fillable = ['accessor_hash', 'owner_hash', 'label'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function accessor()
+    {
+        return $this->belongsTo(User::class, 'accessor_hash', 'receiver_address');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_hash', 'receiver_address');
+    }
 }
