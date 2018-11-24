@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function() {
        Route::post('/create', 'Api\DataController@add');
        Route::post('/request', 'Api\DataController@requestByLabel');
        Route::get('/get', 'Api\DataController@getByLabel');
+       Route::get('/labels', 'Api\DataController@labels');
     });
 });
 

@@ -23,8 +23,9 @@ class User extends Authenticatable
     // Account Types
     public const TYPE_VERIFIER = 1000;
     public const TYPE_GOVERNMENT = 900;
-    public const TYPE_MEDICINE = 3;
-    public const TYPE_FINANCE = 2;
+    public const TYPE_MEDICINE = 30;
+    public const TYPE_FINANCE = 20;
+    public const TYPE_BUSINESS = 10;
     public const TYPE_DEFAULT = 1;
 
     use Notifiable;

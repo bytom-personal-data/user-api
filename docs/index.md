@@ -58,3 +58,26 @@ password,
 ```
 
 ## Authorized actions
+You can do it with header `Auth-Token` and token, which received whith `/login` query.
+
+### Labels
+
+Endpoint: `POST /data/labels` 
+
+**Response**:
+```json
+{
+    "fullname": "Full name of person",
+    "personal_id": "Personal ID of person",
+    "personal_photo": "Personal photo",
+    "taxes": "Taxes",
+    "payments": "Other payments",
+    "employing": "Employing history",
+    "medicine": "Medicine history",
+    "offences": "Offences history",
+    "conviction": "Person convictions",
+    "travel": "Person travels",
+    ...
+}
+```
+

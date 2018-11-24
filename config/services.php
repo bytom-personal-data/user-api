@@ -45,6 +45,60 @@ return [
         'host' => env('BYTOM_HOST', 'localhost'),
         'port' => env('BYTOM_PORT', '9888'),
         'token' => env('BYTOM_TOKEN', null),
+    ],
+
+    'label' => [
+        'router' => [
+            \App\Models\User::TYPE_VERIFIER => [
+                [
+                    'rule' => sprintf('write other'),
+                    'labels' => [
+                        \App\Constants\Labels::PERSONAL_ID_LABEL,
+                        \App\Constants\Labels::FULLNAME_LABEL,
+                        \App\Constants\Labels::PERSONAL_PHOTO_LABEL,
+                    ],
+                ],
+            ],
+            \App\Models\User::TYPE_GOVERNMENT => [
+                [
+                    'rule' => sprintf('write other verify %d', \App\Models\User::TYPE_VERIFIER),
+                    'labels' => [
+                        \App\Constants\Labels::TAXES_LABEL,
+                        \App\Constants\Labels::OFFENCES_LABEL,
+                        \App\Constants\Labels::CONVICTION_LABEL,
+                        \App\Constants\Labels::TRAVEL_LABEL
+                    ],
+                ],
+            ],
+            \App\Models\User::TYPE_MEDICINE => [
+                [
+                    'rule' => sprintf('write other verify %d', \App\Models\User::TYPE_VERIFIER),
+                    'labels' => [
+                        \App\Constants\Labels::MEDICINE_LABEL,
+                    ]
+                ]
+            ],
+            \App\Models\User::TYPE_BUSINESS => [
+                [
+                    'rule' => sprintf('write other verify %d', \App\Models\User::TYPE_GOVERNMENT),
+                    'labels' => [
+                        \App\Constants\Labels::TAXES_LABEL,
+                        \App\Constants\Labels::EMPLOYING_LABEL,
+                        \App\Constants\Labels::TRAVEL_LABEL,
+                    ],
+                ],
+            ],
+            \App\Models\User::TYPE_DEFAULT => [
+                [
+                    'rule' => sprintf('write self verify %d', \App\Models\User::TYPE_GOVERNMENT),
+                    'labels' => [
+                        \App\Constants\Labels::FULLNAME_LABEL,
+                        \App\Constants\Labels::PERSONAL_PHOTO_LABEL,
+                    ],
+                ],
+            ],
+
+        ]
     ]
 
 ];
