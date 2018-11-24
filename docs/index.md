@@ -18,11 +18,13 @@ password_repeat (equals to password),
 **Response**:
 ```json
 {
-    "username": "test5",
-    "xpub": "ebdea7e74b08d8f619c618f9433f4052bb3fde99843da3b29991fa89efabb2faa39b55fbea95b294974c086b31d10bd75846443c71e40994f6029dc93462f970",
-    "updated_at": "2018-11-24 07:23:39",
-    "created_at": "2018-11-24 07:23:39",
-    "id": 3
+    "username": "test11",
+    "xpub": "8b896c4772df97797a07af84819353cf72457e39d85d528d379a3e574ee011c60ab74c3ec35e3061210f32527717ff31059f511a14d31980382a6c1a42f58c21",
+    "account_id": "0LJJK2AT00A08",
+    "receiver_address": "tm1qxln4nss3hz5q2te2zvu27znpzgjyv22p6her7s",
+    "updated_at": "2018-11-24 08:36:30",
+    "created_at": "2018-11-24 08:36:30",
+    "id": 5
 }
 ```
 
@@ -41,13 +43,15 @@ password,
 {
     "token": "PloPyt6Faqftzzb7xsQeJ0VuA06m6SQb",
     "user": {
-        "id": 3,
-        "username": "test5",
-        "xpub": "ebdea7e74b08d8f619c618f9433f4052bb3fde99843da3b29991fa89efabb2faa39b55fbea95b294974c086b31d10bd75846443c71e40994f6029dc93462f970",
-        "created_at": "2018-11-24 07:23:39",
-        "updated_at": "2018-11-24 07:23:39"
+        "username": "test11",
+        "xpub": "8b896c4772df97797a07af84819353cf72457e39d85d528d379a3e574ee011c60ab74c3ec35e3061210f32527717ff31059f511a14d31980382a6c1a42f58c21",
+        "account_id": "0LJJK2AT00A08",
+        "receiver_address": "tm1qxln4nss3hz5q2te2zvu27znpzgjyv22p6her7s",
+        "updated_at": "2018-11-24 08:36:30",
+        "created_at": "2018-11-24 08:36:30",
+        "id": 5
     }
 }
 ```
 
-## Auth 
+## Authorized actions
