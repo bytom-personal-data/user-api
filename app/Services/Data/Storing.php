@@ -5,6 +5,7 @@ namespace App\Services\Data;
 
 use App\Models\Allowance;
 use App\Models\AllowanceRequest;
+use App\Models\LabelAllowance;
 use Symfony\Component\VarDumper\Cloner\Data;
 
 class Storing
@@ -57,6 +58,7 @@ class Storing
         }
 
         $data = Data::where('owner_hash', $ownerHash)
+            ->where('label', $label)
             ->all();
 
         return $data;
@@ -64,12 +66,20 @@ class Storing
 
     public function checkAllowanceToCreateInLabel($label): bool
     {
-        return true;
+        return LabelAllowance::where('accessor_hash', app()->user())
+            ->where('label', $label)
+            ->where('is_active', true)
+            ->where('mode', LabelAllowance::READ_MODE)
+            ->count() > 0;
     }
 
     public function checkAllowanceToReadInLabel($label): bool
     {
-        return true;
+        return LabelAllowance::where('accessor_hash', app()->user())
+                ->where('label', $label)
+                ->where('is_active', true)
+                ->where('mode', LabelAllowance::WRITE_MODE)
+                ->count() > 0;
     }
 
     public function hasAllowance($accessorHash, $ownerHash, $label): bool

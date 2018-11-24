@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Verification;
+use App\Models\Verification;
 use Illuminate\Database\Eloquent\Model;
 
 /**
