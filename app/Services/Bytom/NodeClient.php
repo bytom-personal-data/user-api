@@ -22,6 +22,21 @@ class NodeClient
         ]);
     }
 
+    public function createKey(string $username, string $password): array
+    {
+        return $this->request('create-key', ['alias' => $username, 'password' => $password]);
+    }
+
+    public function createAccount(array $xpubs, string $alias, int $quorum = 1): array
+    {
+        return $this->request('create-account', ['root_xpubs' => $xpubs, 'alias' => $alias, 'quorum' => $quorum]);
+    }
+
+    public function createAccountReceiver(string $alias)
+    {
+        return $this->request('create-account-receiver', ['account_alias' => $alias]);
+    }
+
     public function request(string $endpoint, $params = [])
     {
         $response = $this->client->post($endpoint, [
@@ -32,7 +47,12 @@ class NodeClient
         ]);
 
         $contents = $response->getBody()->getContents();
+        $contents = \json_decode($contents, true);
 
-        return \json_decode($contents, true);
+        if ($contents['status'] == 'success') {
+            return $contents['data'];
+        } else {
+            throw new \Exception($contents['msg']);
+        }
     }
 }
