@@ -21,10 +21,10 @@ class UserRepository
 
         /** @var Node $bytom */
         $bytom = resolve(Node::class);
-        $key = $bytom->createKey($username, $password);
+        $key = $bytom->create_key($username, $password);
         $accountAlias = $username . "_" . self::DEFAULT_ACCOUNT;
-        $account = $bytom->createAccount([$key['xpub']], $accountAlias);
-        $receiver = $bytom->createAccountReceiver($accountAlias);
+        $account = $bytom->create_account([$key['xpub']], $accountAlias);
+        $receiver = $bytom->create_account_receiver($accountAlias);
 
 
         $user = User::create([

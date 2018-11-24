@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  * @package App\Models
  *
+ * @property int $id
  * @property string $username
  * @property string $password
  * @property string $xpub

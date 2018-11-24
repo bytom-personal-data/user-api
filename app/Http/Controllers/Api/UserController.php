@@ -8,6 +8,8 @@ use App\Http\Requests\UserSignup as UserSignupRequest;
 use App\Http\Requests\UserLogin as UserLoginRequest;
 use App\Repositories\UserRepository;
 use App\Services\Auth\ApiAuth;
+use App\Services\Bytom\Node;
+use Illuminate\Http\Request;
 
 /**
  * Class UserController
@@ -42,4 +44,16 @@ class UserController extends Controller
         throw new \Exception("Login can not be done.");
     }
 
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
+
+    public function unspents()
+    {
+        $node = resolve(Node::class);
+        dd($node->list_balances());
+
+        return 1;
+    }
 }

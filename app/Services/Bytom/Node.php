@@ -15,18 +15,18 @@ use Illuminate\Support\Facades\Log;
 class Node
 {
     private $host;
-    private $bytomClient;
+    private $nodeClient;
 
     public function __construct()
     {
         $this->host = sprintf(
-            "%s://%s:%s",
+            "%s://%s:%s/",
             config('services.bytom.proto'),
             config('services.bytom.host'),
             config('services.bytom.port')
         );
 
-        $this->bytomClient = new BytomClient($this->host, config('services.bytom.token'));
+        $this->nodeClient = new NodeClient($this->host, config('services.bytom.token'));
     }
 
     public function host()
@@ -36,19 +36,20 @@ class Node
 
     public function client()
     {
-        return $this->bytomClient;
+        return $this->nodeClient;
     }
 
     public function __call($name, $arguments)
     {
-        $response = call_user_func_array([$this->bytomClient, $name], $arguments);
-        $o = $response->getJSONDecodedBody();
+        $name = str_replace('_', '-', $name);
 
-        if ( $o['status'] == "fail" ) {
-            Log::error("NODE ERROR: " . \json_encode($o));
-            throw new \Exception($o['msg']);
+        $response = $this->nodeClient->request($name, $arguments);
+
+        if ( $response['status'] == "fail" ) {
+            Log::error("NODE ERROR: " . \json_encode($response));
+            throw new \Exception($response['msg']);
         }
 
-        return $o['data'];
+        return $response['data'];
     }
 }

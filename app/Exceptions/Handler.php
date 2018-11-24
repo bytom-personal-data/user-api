@@ -50,39 +50,41 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof NotFoundHttpException) {
-            return response([
-                'error' => 'true',
-                'message' => $exception->getMessage()
-            ])->setStatusCode(404);
-        }
+        if (env('APP_DEBUG') != true) {
+            if ($exception instanceof NotFoundHttpException) {
+                return response([
+                    'error' => 'true',
+                    'message' => $exception->getMessage()
+                ])->setStatusCode(404);
+            }
 
-        if ($exception instanceof AuthorizationException) {
-            return response([
-                'error' => 'true',
-                'message' => $exception->getMessage()
-            ])->setStatusCode(401);
-        }
+            if ($exception instanceof AuthorizationException) {
+                return response([
+                    'error' => 'true',
+                    'message' => $exception->getMessage()
+                ])->setStatusCode(401);
+            }
 
-        if($exception instanceof MethodNotAllowedHttpException)
-        {
-            return response([
-                'error' => 'true',
-                'message' => "Method not allowed",
-            ])->setStatusCode($exception->getStatusCode());
-        }
+            if ($exception instanceof MethodNotAllowedHttpException) {
+                return response([
+                    'error' => 'true',
+                    'message' => "Method not allowed",
+                ])->setStatusCode($exception->getStatusCode());
+            }
 
-        if ($exception instanceof HttpException) {
+            if ($exception instanceof HttpException) {
+                return response([
+                    'error' => 'true',
+                    'message' => $exception->getMessage() ?? class_basename($exception),
+                ])->setStatusCode($exception->getStatusCode());
+            }
+
             return response([
                 'error' => 'true',
                 'message' => $exception->getMessage() ?? class_basename($exception),
-            ])->setStatusCode($exception->getStatusCode());
+            ])->setStatusCode(400);
+        } else {
+            return parent::render($request, $exception);
         }
-
-        return response([
-            'error' => 'true',
-            'message' => $exception->getMessage() ?? class_basename($exception),
-        ])->setStatusCode(400);
-
     }
 }

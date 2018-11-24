@@ -21,4 +21,13 @@ class ApiAuth
         Cache::put($token, $user->id, self::AUTH_TOKEN_VALID_DURATION);
         return $token;
     }
+
+    public function user(string $token): ?User
+    {
+        if( Cache::has($token) ) {
+            return User::where('id', Cache::get($token))->first();
+        }
+
+        return null;
+    }
 }
