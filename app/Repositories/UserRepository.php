@@ -18,7 +18,7 @@ class UserRepository
      * @return User
      * @throws \Exception
      */
-    public function create(string $username, string $password): User
+    public function create(string $username, string $password, int $type = User::TYPE_DEFAULT): User
     {
         if( User::where('username', $username)->count() > 0 ) {
             //TODO make custom exception
@@ -40,6 +40,7 @@ class UserRepository
             'keyfile' => $key['file'],
             'account_id' => $account['id'],
             'receiver_address' => $receiver['address'],
+            'type' => $type
         ]);
 
         return $user;

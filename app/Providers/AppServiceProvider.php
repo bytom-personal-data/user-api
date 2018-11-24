@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\UserRepository;
 use App\Services\Auth\ApiAuth;
 use App\Services\Bytom\Node;
+use App\Services\Data\Storing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(ApiAuth::class, function($app) {
            return new ApiAuth();
+        });
+
+        $this->app->singleton(Storing::class, function($app) {
+           return new Storing();
         });
     }
 }

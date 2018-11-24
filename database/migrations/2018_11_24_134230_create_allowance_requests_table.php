@@ -5,10 +5,10 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateDataTable
+ * Class CreateAllowanceRequestsTable
  *
  */
-class CreateDataTable extends Migration
+class CreateAllowanceRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,12 +17,12 @@ class CreateDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('data', function (Blueprint $table) {
+        Schema::create('allowance_requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('owner_hash');
-            $table->string('maker_hash');
             $table->string('label');
-            $table->text('data');
+            $table->string('accessor_hash');
+            $table->string('owner_hash');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data');
+        Schema::dropIfExists('allowance_requests');
     }
 }

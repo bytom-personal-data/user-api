@@ -4,11 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateDataTable
- *
- */
-class CreateDataTable extends Migration
+class CreateLabelAllowancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,12 +13,12 @@ class CreateDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('data', function (Blueprint $table) {
+        Schema::create('label_allowances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('owner_hash');
-            $table->string('maker_hash');
             $table->string('label');
-            $table->text('data');
+            $table->string('accessor_hash');
+            $table->boolean('is_active')->default(true);
+            $table->smallInteger('mode')->default(\App\Models\LabelAllowance::READ_MODE);
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data');
+        Schema::dropIfExists('label_allowances');
     }
 }

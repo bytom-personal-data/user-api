@@ -37,6 +37,11 @@ class NodeClient
         return $this->request('create-account-receiver', ['account_alias' => $alias]);
     }
 
+    public function listUnspentOutputs()
+    {
+        return $this->request('list-unspent-outputs', []);
+    }
+
     public function request(string $endpoint, $params = [])
     {
         $response = $this->client->post($endpoint, [

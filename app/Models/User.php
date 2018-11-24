@@ -14,9 +14,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $password
  * @property string $xpub
  * @property string $keyfile
+ * @property string $account_id
+ * @property string $receiver_address
+ * @property int $type
  */
 class User extends Authenticatable
 {
+    public const TYPE_VERIFIER = 1000;
+    public const TYPE_GOVERNMENT = 900;
+    public const TYPE_MEDICINE = 3;
+    public const TYPE_FINANCE = 2;
+    public const TYPE_DEFAULT = 1;
+
     use Notifiable;
 
     // Account Types
@@ -37,7 +46,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'xpub', 'keyfile', 'account_id', 'receiver_address'
+        'username', 'password', 'xpub', 'keyfile', 'type', 'account_id', 'receiver_address'
     ];
 
     /**
@@ -48,4 +57,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'keyfile'
     ];
+
+    public function ownerData()
+    {
+        $this->hasMany(Data::class, 'owner_hash', 'receiver_address');
+    }
+
+    public function madeData()
+    {
+        $this->hasMany(Data::class, 'maker_hash', 'receiver_address');
+    }
 }
