@@ -24,6 +24,7 @@ class UserController extends Controller
      * @param UserRepository $repository
      * @param ApiAuth $apiAuth
      * @return array
+     * @throws \Exception
      */
     public function signup(UserSignupRequest $request, UserRepository $repository, ApiAuth $apiAuth)
     {
@@ -75,8 +76,6 @@ class UserController extends Controller
     public function unspents()
     {
         $node = resolve(Node::class);
-        dd($node->list_balances());
-
-        return 1;
+        return $node->client()->listUnspentOutputs();
     }
 }
