@@ -40,4 +40,11 @@ return [
         ],
     ],
 
+    'bytom' => [
+        'proto' => env('BYTOM_PROTO', 'http'),
+        'host' => env('BYTOM_HOST', 'localhost'),
+        'port' => env('BYTOM_PORT', '9888'),
+        'token' => env('BYTOM_TOKEN', null),
+    ]
+
 ];
