@@ -58,7 +58,7 @@ class UserController extends Controller
         }
 
         //TODO make custom exception
-        throw new \Exception("Login can not be done.");
+        throw new \Exception("Wrong login or password.");
     }
 
     /**
