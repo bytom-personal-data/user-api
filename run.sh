@@ -3,6 +3,10 @@ type=$1
 environment=$2
 file='docker-compose.yml'
 
+if [[ $environment = 'prod' ]]
+    then file='docker-compose.prod.yml'
+fi
+
 case "$type" in
     start)
         echo "Start $file."
