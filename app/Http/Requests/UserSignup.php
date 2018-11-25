@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
  * @property string $username
  * @property string $password
  * @property string $password_repeat
+ * @property integer $type
  */
 class UserSignup extends ApiFormRequest
 {
@@ -37,7 +38,7 @@ class UserSignup extends ApiFormRequest
             'password_repeat' => 'same:password',
             'account_type' => [
                 'integer',
-                Rule::in([User::TYPE_DEFAULT, User::TYPE_FINANCE, User::TYPE_MEDICINE])
+                Rule::in([User::TYPE_DEFAULT, User::TYPE_FINANCE, User::TYPE_MEDICINE, User::TYPE_BUSINESS])
             ]
         ];
     }
