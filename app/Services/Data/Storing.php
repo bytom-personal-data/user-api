@@ -6,6 +6,8 @@ namespace App\Services\Data;
 use App\Models\Allowance;
 use App\Models\AllowanceRequest;
 use App\Models\LabelAllowance;
+use App\Models\User;
+use App\Models\Verification;
 use Illuminate\Support\Facades\DB;
 use App\Models\Data;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -134,5 +136,19 @@ class Storing
         } else {
             throw new NotFoundHttpException("Allowance request not found.");
         }
+    }
+
+    public function verify(Data $data)
+    {
+        //TODO blockchain verifications save
+
+        $verification = Verification::create([
+            'txhash' => str_random(128),
+            'verify_utxo' => 1,
+            'verifier_hash' => request()->user()->receiver_address,
+            'data_id' => $data->id,
+        ]);
+
+        return $verification;
     }
 }
