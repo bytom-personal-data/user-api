@@ -131,6 +131,8 @@ If owner_has not set, user, which make request, become a owner.
 
 ### Get data
 
+Endpoint: `GET /data/get`
+
 **Request**:
 ```
 labels (array, labels list in default HTTP format)
@@ -177,6 +179,8 @@ owner_hash (optional, string, data owner)
 
 ### Create allowance request
 
+Endpoint: `POST /data/request`
+
 **Request**:
 ```
 owner_hash (string, data owner hash)
@@ -201,6 +205,8 @@ labels (array, list of labels)
 
 ### Get allowance requests of current user
 
+Endpoint: `GET /data/requests`
+
 **Request**:
 ```
 status (int, optional)
@@ -224,6 +230,8 @@ status (int, optional)
 ```
 
 ### Confirm request
+
+Endpoint: `POST /data/confirm`
 
 **Request**:
 ```
