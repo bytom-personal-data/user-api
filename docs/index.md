@@ -88,7 +88,7 @@ Endpoint: `POST /data/create`
 
 **Request**:
 ```
-label (string, label of data)
+label (string, from label list)
 data (string, data)
 owner_hash (optional, string, hash of future data owner)
 ```
@@ -126,5 +126,51 @@ If owner_has not set, user, which make request, become a owner.
         "timezone_type": 3,
         "timezone": "UTC"
     }
+}
+```
+
+### Get data
+
+**Request**:
+```
+labels (array, labels list in default HTTP format)
+owner_hash (optional, string, data owner)
+```
+
+**Response**:
+```js
+{
+    "data": [
+        {
+            "id": 1,
+            "label": "personal_id",
+            "owner": {
+                "id": 5,
+                "username": "test44",
+                "created_at": "2018-11-25 04:31:11",
+                "updated_at": "2018-11-25 04:31:11",
+                "account_id": "0LKLPOQB00A1K",
+                "receiver_address": "sm1qjv88c3q729f2m76gxyxvclcxcqwr8m0x5ku502",
+                "type": 1
+            },
+            "maker": {
+                "id": 5,
+                "username": "test44",
+                "created_at": "2018-11-25 04:31:11",
+                "updated_at": "2018-11-25 04:31:11",
+                "account_id": "0LKLPOQB00A1K",
+                "receiver_address": "sm1qjv88c3q729f2m76gxyxvclcxcqwr8m0x5ku502",
+                "type": 1
+            },
+            "data": "8547 848199",
+            "verifications": [],
+            "is_verified": false,
+            "created_at": {
+                "date": "2018-11-25 04:32:10.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        }
+    ]
 }
 ```
