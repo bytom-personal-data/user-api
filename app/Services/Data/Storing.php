@@ -8,6 +8,7 @@ use App\Models\AllowanceRequest;
 use App\Models\LabelAllowance;
 use Illuminate\Support\Facades\DB;
 use App\Models\Data;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Storing
 {
@@ -44,6 +45,7 @@ class Storing
                 }
 
                 $allowanceRequest[] = AllowanceRequest::create([
+                    'hash' => str_random(32),
                     'accessor_hash' => request()->user()->receiver_address,
                     'owner_hash' => $ownerHash,
                     'label' => $label,
@@ -104,5 +106,30 @@ class Storing
             ->where('is_active', true)
             ->count() > 0 ||
             $ownerHash == $accessorHash;
+    }
+
+    public function getAllRequests($status = AllowanceRequest::NOT_ACCESSED)
+    {
+        return AllowanceRequest::where('owner_hash', request()->user()->receiver_address)
+            ->where('status', $status)
+            ->get();
+    }
+
+    public function confirmRequest($allowanceHash): ?Allowance {
+        /** @var AllowanceRequest $request */
+        $request = AllowanceRequest::where('hash', $allowanceHash)->get();
+
+        if($request) {
+            $request->status = AllowanceRequest::ACCESSED;
+            $request->save();
+
+            return Allowance::create([
+                'accessor_hash' => $request->accessor_hash,
+                'owner_hash' => $request->owner_hash,
+                'label' => $request->label,
+            ]);
+        } else {
+            throw new NotFoundHttpException("Allowance request not found.");
+        }
     }
 }

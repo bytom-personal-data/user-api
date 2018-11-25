@@ -25,7 +25,7 @@ class AllowanceRequest extends Model
     public const NOT_ACCESSED = 0;
     public const ACCESSED = 1;
 
-    protected $fillable = ['label', 'accessor_hash', 'owner_hash', 'status'];
+    protected $fillable = ['hash', 'label', 'accessor_hash', 'owner_hash', 'status'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
