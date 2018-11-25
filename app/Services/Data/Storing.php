@@ -8,6 +8,7 @@ use App\Models\AllowanceRequest;
 use App\Models\LabelAllowance;
 use App\Models\User;
 use App\Models\Verification;
+use App\Services\Bytom\Node;
 use Illuminate\Support\Facades\DB;
 use App\Models\Data;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -138,9 +139,11 @@ class Storing
         }
     }
 
-    public function verify(Data $data)
+    public function verify(Data $data, string $password)
     {
-        //TODO blockchain verifications save
+        /** @var Node $node */
+        $node = resolve(Node::class);
+        $tx = $node->client()->buildTransaction(request()->user()->account_id, $data->owner_hash, $data->hash);
 
         $verification = Verification::create([
             'txhash' => str_random(128),
@@ -148,6 +151,9 @@ class Storing
             'verifier_hash' => request()->user()->receiver_address,
             'data_id' => $data->id,
         ]);
+
+        $signedTx = $node->client()->signTransaction($password, $tx);
+        $node->client()->submitTransaction($signedTx);
 
         return $verification;
     }

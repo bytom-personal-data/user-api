@@ -15,6 +15,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $maker_hash
  * @property string $label
  * @property string $data
+ * @property string $hash
  * @property string $created_at
  * @property string $updated_at
  *
@@ -40,6 +41,7 @@ class Data extends JsonResource
             'owner' => $this->owner,
             'maker' => $this->maker,
             'data' => $this->data,
+            'hash' => $this->hash ?? hash('ripemd160', $this->data),
             'verifications' => $this->verifications,
             'is_verified' => $this->is_verified,
             'created_at' => $this->created_at,

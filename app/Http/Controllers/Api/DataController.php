@@ -73,6 +73,6 @@ class DataController extends Controller
             throw new NotFoundHttpException("Data with this hash not exists.");
         }
 
-        return $storing->verify($data);
+        return $storing->verify($data, $request->password);
     }
 }

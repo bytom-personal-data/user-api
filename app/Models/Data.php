@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $maker_hash
  * @property string $label
  * @property string $data
+ * @property string $hash
  * @property string $created_at
  * @property string $updated_at
  *

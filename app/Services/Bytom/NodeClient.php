@@ -42,6 +42,46 @@ class NodeClient
         return $this->request('list-unspent-outputs', []);
     }
 
+    public function buildTransaction($accountAlias, $address, $arbitrary)
+    {
+        $tx = [
+            'base_transaction' => null,
+            'ttl' => 200,
+            'time_range' => 1000000,
+            'actions' => [
+                [
+                    'account_alias' => $accountAlias,
+                    'asset_alias' => 'BTM',
+                    'amount' => 0,
+                    'type' => 'spend_account',
+                    'address' => $address,
+                    'arbitrary' => bin2hex($arbitrary)
+                ]
+            ]
+        ];
+
+        return $this->request('build-transaction', $tx);
+    }
+
+    public function signTransaction($password, $tx)
+    {
+        $params = [
+            'password' => $password,
+            'transaction' => $tx,
+        ];
+
+        return $this->request('sign-transaction', $params);
+    }
+
+    public function submitTransaction($rawTx)
+    {
+        $params = [
+            'raw_transaction' => $rawTx
+        ];
+
+        return $this->request('submit-transaction', $params);
+    }
+
     public function request(string $endpoint, $params = [])
     {
         $response = $this->client->post($endpoint, [

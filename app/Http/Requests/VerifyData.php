@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @package App\Http\Requests
  *
  * @property string $hash
+ * @property string $password
  */
 class VerifyData extends FormRequest
 {
@@ -30,7 +31,8 @@ class VerifyData extends FormRequest
     public function rules()
     {
         return [
-            'hash' => 'required|string'
+            'hash' => 'required|string',
+            'password' => 'required'
         ];
     }
 }
