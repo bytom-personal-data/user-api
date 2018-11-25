@@ -4,6 +4,10 @@ Hello! Here you can find open BIN API implementation in PHP with Bytom Blockchai
 This API can be use for secure citizen personal data and give to participants
 of private data flow more control, transparency and reliability.
 
+Site: [More about BIN](http://binproject.com/)
+
+This project is demo for Junction 2018 hackaton. Don't use in production, please ;)
+
 ### How to run
 Here exists two working Docker Compose based pre-builds: dev and production.
 Main difference — used ports and NGINX container exists.
@@ -24,3 +28,4 @@ You can find docs to use API here:
 
 [API documentation](https://github.com/bytom-personal-data/user-api/blob/master/docs/index.md)
 
+This project is demo for Junction 2018 hackaton. 
