@@ -13,7 +13,7 @@ class AddTxhashColumnToVerificationTable extends Migration
      */
     public function up()
     {
-        Schema::table('verification', function (Blueprint $table) {
+        Schema::table('verifications', function (Blueprint $table) {
             $table->string('txhash');
         });
     }
@@ -25,7 +25,7 @@ class AddTxhashColumnToVerificationTable extends Migration
      */
     public function down()
     {
-        Schema::table('verification', function (Blueprint $table) {
+        Schema::table('verifications', function (Blueprint $table) {
             $table->dropColumn('txhash');
         });
     }
