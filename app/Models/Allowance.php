@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class Allowance extends Model
 {
     protected $fillable = ['accessor_hash', 'owner_hash', 'label'];
+    protected $hidden = ['id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

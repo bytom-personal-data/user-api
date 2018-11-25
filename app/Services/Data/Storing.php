@@ -29,6 +29,7 @@ class Storing
             'maker_hash' => request()->user()->receiver_address,
             'owner_hash' => $ownerHash,
             'data' => $data,
+            'hash' => hash('ripemd160', $data)
         ]);
 
         return $data;
