@@ -20,4 +20,5 @@ class LabelAllowance extends Model
     public const WRITE_MODE = 2;
 
     protected $fillable = ['accessor_hash', 'label', 'mode', 'is_active'];
+    protected $hidden = ['id'];
 }

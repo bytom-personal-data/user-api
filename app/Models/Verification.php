@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 class Verification extends Model
 {
     protected $fillable = ['data_id', 'verifier_hash', 'verify_utxo'];
+    protected $hidden = ['id'];
 
     public function verifier()
     {
