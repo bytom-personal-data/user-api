@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function() {
        Route::get('/requests', 'Api\DataController@getAllRequests');
        Route::post('/confirm', 'Api\DataController@confirmRequest');
 
+       Route::post('/verify', 'Api\DataController@verify');
+
        Route::get('/get', 'Api\DataController@getDataByLabels');
        Route::get('/labels', 'Api\DataController@labels');
     });

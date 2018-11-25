@@ -227,6 +227,25 @@ Statuses: `0 - NOT ACCESSED`, `1 - ACCESSED`
 ]
 ```
 
+### Data Verify 
+
+Endpoint: `POST /data/verify`
+
+**Request**:
+```
+hash (string, request data hash)
+```
+
+**Response**:
+```js
+{
+    "txhash" : "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9iTuBsjWjtIS",
+    "verify_utxo" : "1",
+    "verifier_hash" : "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+    "data_id" : 5
+}
+```
+
 ### Confirm request
 
 Endpoint: `POST /data/confirm`
