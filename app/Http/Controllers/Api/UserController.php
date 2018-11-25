@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function signup(UserSignupRequest $request, UserRepository $repository, ApiAuth $apiAuth)
     {
-        $user = $repository->create($request->username, $request->password, $request->type);
+        $user = $repository->create($request->username, $request->password, (int)$request->type);
         $token = $apiAuth->make($user);
 
         //TODO make resource
