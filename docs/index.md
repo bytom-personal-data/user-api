@@ -212,6 +212,8 @@ Endpoint: `GET /data/requests`
 status (int, optional)
 ```
 
+Statuses: `0 - NOT ACCESSED`, `1 - ACCESSED`
+
 **Response**:
 ```js
 [
