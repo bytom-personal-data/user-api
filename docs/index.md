@@ -97,7 +97,6 @@ If owner_has not set, user, which make request, become a owner.
 **Response**:
 ```js
 {
-    "id": 3,
     "label": "personal_id",
     //user object below
     "owner": {
@@ -144,7 +143,6 @@ owner_hash (optional, string, data owner)
 {
     "data": [
         {
-            "id": 1,
             "label": "personal_id",
             "owner": {
                 "id": 5,
@@ -197,7 +195,6 @@ labels (array, list of labels)
         "label": "personal_id",
         "updated_at": "2018-11-25 05:17:25",
         "created_at": "2018-11-25 05:17:25",
-        "id": 5
     },
     ...
 ]
@@ -218,7 +215,6 @@ Statuses: `0 - NOT ACCESSED`, `1 - ACCESSED`
 ```js
 [
     {
-        "id": 6,
         "label": "personal_id",
         "accessor_hash": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
         "owner_hash": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
@@ -250,7 +246,6 @@ hash (string, request hash from previous request)
         "label": "personal_id",
         "updated_at": "2018-11-25 05:26:48",
         "created_at": "2018-11-25 05:26:48",
-        "id": 3
     }
 }
 ```
