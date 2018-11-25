@@ -174,3 +174,73 @@ owner_hash (optional, string, data owner)
     ]
 }
 ```
+
+### Create allowance request
+
+**Request**:
+```
+owner_hash (string, data owner hash)
+labels (array, list of labels)
+```
+
+**Response**:
+```js
+[
+    {
+        "hash": "1CyO1ysR08IzNK5vAMBJv1U9lsBO8scn",
+        "accessor_hash": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+        "owner_hash": "sm1qjv88c3q729f2m76gxyxvclcxcqwr8m0x5ku502",
+        "label": "personal_id",
+        "updated_at": "2018-11-25 05:17:25",
+        "created_at": "2018-11-25 05:17:25",
+        "id": 5
+    },
+    ...
+]
+```
+
+### Get allowance requests of current user
+
+**Request**:
+```
+status (int, optional)
+```
+
+**Response**:
+```js
+[
+    {
+        "id": 6,
+        "label": "personal_id",
+        "accessor_hash": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+        "owner_hash": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+        "status": false,
+        "created_at": "2018-11-25 05:22:06",
+        "updated_at": "2018-11-25 05:22:06",
+        "hash": "jva9VFw5edJUpNCLdObG9MF75gu1jBM0"
+    },
+    ...
+]
+```
+
+### Confirm request
+
+**Request**:
+```
+hash (string, request hash from previous request)
+```
+
+**Response**:
+```js
+{
+    "status": "confirmed",
+    "allowance": {
+        "accessor_hash": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+        "owner_hash": "sm1q59pnfnyhpjn8kcm7em4u2j56v7srav0tj73ej9",
+        "label": "personal_id",
+        "updated_at": "2018-11-25 05:26:48",
+        "created_at": "2018-11-25 05:26:48",
+        "id": 3
+    }
+}
+```

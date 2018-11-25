@@ -24,17 +24,17 @@ class DataController extends Controller
         return Labels::getLabels();
     }
 
-    public function createRequestByLabel(DataGetRequest $request, Storing $storing)
+    public function createRequestsByLabel(DataGetRequest $request, Storing $storing)
     {
         return $storing->makeDataRequest($request->labels, $request->owner_hash);
     }
 
-    public function getAllRequestsByLabel(Request $request, Storing $storing)
+    public function getAllRequests(Request $request, Storing $storing)
     {
-        if ($request->get('labels')) {
-            return $storing->getAllRequests($request->labels);
+        if ($status = $request->get('status')) {
+            return $storing->getAllRequests($status);
         } else {
-            throw new \Exception("Labels not exists in query.");
+            return $storing->getAllRequests();
         }
     }
 
@@ -51,10 +51,13 @@ class DataController extends Controller
     /**
      * @param ConfirmAllowanceRequest $request
      * @param Storing $storing
-     * @return \App\Models\Allowance|null
+     * @return array
      */
     public function confirmRequest(ConfirmAllowanceRequest $request, Storing $storing)
     {
-        return $storing->confirmRequest($request->hash);
+        return [
+            'status' => 'confirmed',
+            'allowance' => $storing->confirmRequest($request->hash)
+        ];
     }
 }

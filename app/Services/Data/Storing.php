@@ -38,20 +38,18 @@ class Storing
     {
         $allowanceRequest = [];
 
-        DB::transaction(function () use ($labels, $ownerHash) {
-            foreach ($labels as $label) {
-                if (!$this->checkAllowanceToReadInLabel($label)) {
-                    throw new \Exception("Request can'not be sent to label $label.");
-                }
-
-                $allowanceRequest[] = AllowanceRequest::create([
-                    'hash' => str_random(32),
-                    'accessor_hash' => request()->user()->receiver_address,
-                    'owner_hash' => $ownerHash,
-                    'label' => $label,
-                ]);
+        foreach ($labels as $label) {
+            if (!$this->checkAllowanceToReadInLabel($label)) {
+                throw new \Exception("Request can'not be sent to label $label.");
             }
-        });
+
+            $allowanceRequest[] = AllowanceRequest::create([
+                'hash' => str_random(32),
+                'accessor_hash' => request()->user()->receiver_address,
+                'owner_hash' => $ownerHash,
+                'label' => $label,
+            ]);
+        }
 
         return $allowanceRequest;
     }
@@ -117,7 +115,11 @@ class Storing
 
     public function confirmRequest($allowanceHash): ?Allowance {
         /** @var AllowanceRequest $request */
-        $request = AllowanceRequest::where('hash', $allowanceHash)->get();
+        $request = AllowanceRequest::where('hash', $allowanceHash)->first();
+
+        if($request->status == AllowanceRequest::ACCESSED) {
+            throw new \Exception("This request already confirmed.");
+        }
 
         if($request) {
             $request->status = AllowanceRequest::ACCESSED;

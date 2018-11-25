@@ -19,7 +19,7 @@ class ConfirmAllowanceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return request()->user() != null;
     }
 
     /**

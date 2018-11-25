@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class DataGet
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
  * @property array $labels
  * @property string $owner_hash
  */
-class DataGet extends Request
+class DataGet extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

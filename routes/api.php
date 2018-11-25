@@ -28,8 +28,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['prefix' => 'data'], function() {
        Route::post('/create', 'Api\DataController@add');
 
-       Route::post('/request', 'Api\DataController@createRequestByLabel');
-       Route::get('/requests', 'Api\DataController@getAllRequestsByLabel');
+       Route::post('/request', 'Api\DataController@createRequestsByLabel');
+       Route::get('/requests', 'Api\DataController@getAllRequests');
        Route::post('/confirm', 'Api\DataController@confirmRequest');
 
        Route::get('/get', 'Api\DataController@getDataByLabels');
