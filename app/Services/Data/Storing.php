@@ -144,16 +144,15 @@ class Storing
         /** @var Node $node */
         $node = resolve(Node::class);
         $tx = $node->client()->buildTransaction(request()->user()->account_id, $data->owner_hash, $data->hash);
+        $signedTx = $node->client()->signTransaction($password, $tx);
+        $realTx = $node->client()->submitTransaction($signedTx);
 
         $verification = Verification::create([
-            'txhash' => str_random(128),
+            'txhash' => $realTx['tx_id'],
             'verify_utxo' => 1,
             'verifier_hash' => request()->user()->receiver_address,
             'data_id' => $data->id,
         ]);
-
-        $signedTx = $node->client()->signTransaction($password, $tx);
-        $node->client()->submitTransaction($signedTx);
 
         return $verification;
     }
