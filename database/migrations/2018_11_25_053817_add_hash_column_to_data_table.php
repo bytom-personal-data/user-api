@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddHashColumnToAllowanceRequestsTable extends Migration
+class AddHashColumnToDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddHashColumnToAllowanceRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::table('allowance_requests', function (Blueprint $table) {
+        Schema::table('data', function (Blueprint $table) {
             $table->string('hash');
         });
     }
@@ -25,7 +25,7 @@ class AddHashColumnToAllowanceRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::table('allowance_requests', function (Blueprint $table) {
+        Schema::table('data', function (Blueprint $table) {
             $table->dropColumn('hash');
         });
     }

@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Data extends Model
 {
-    protected $fillable = ['label', 'owner_hash', 'maker_hash', 'verifier_hash', 'data', 'verify_utxo'];
+    protected $fillable = ['hash', 'label', 'owner_hash', 'maker_hash', 'verifier_hash', 'data', 'verify_utxo'];
     protected $hidden = ['verify_utxo', 'id'];
 
     public function getIsVerifiedAttribute()
