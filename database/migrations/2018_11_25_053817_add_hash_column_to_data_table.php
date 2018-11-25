@@ -14,7 +14,7 @@ class AddHashColumnToDataTable extends Migration
     public function up()
     {
         Schema::table('data', function (Blueprint $table) {
-            $table->string('hash');
+            $table->string('hash')->nullable();
         });
     }
 

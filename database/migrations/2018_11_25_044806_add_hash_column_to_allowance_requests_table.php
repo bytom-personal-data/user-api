@@ -14,7 +14,7 @@ class AddHashColumnToAllowanceRequestsTable extends Migration
     public function up()
     {
         Schema::table('allowance_requests', function (Blueprint $table) {
-            $table->string('hash');
+            $table->string('hash')->nullable();
         });
     }
 
